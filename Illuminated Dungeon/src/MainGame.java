@@ -7,9 +7,8 @@ public class MainGame {
 	}
 	
 	private void ShowStartupScreen() {
-		
+		System.out.println("Hello World");
 		//TODO: Shivam to Add Startup Screen Logic
-		//Here's a change
 	}
 
 	private void ShowCharacterSelectScreen() {
