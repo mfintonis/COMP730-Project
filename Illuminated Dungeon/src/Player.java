@@ -1,5 +1,3 @@
-package Dungeon;
-
 import java.util.ArrayList;
 import java.util.Scanner; 
 public class Player extends Actor {

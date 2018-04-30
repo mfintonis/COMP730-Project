@@ -1,5 +1,3 @@
-package Dungeon;
-
 
 public class Enemy extends Actor{
 

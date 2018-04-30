@@ -1,5 +1,3 @@
-package Dungeon;
-
 
 public abstract class BaseItem {
 

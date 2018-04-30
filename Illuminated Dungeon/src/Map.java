@@ -1,5 +1,3 @@
-package Dungeon;
-
 import java.util.Random;
 
 public class Map {
@@ -10,10 +8,13 @@ public class Map {
 
 	public Map(int level)
 	{
+		// init map
 		myFloor = new BaseItem[(int) (Math.random() * 10) + 10][(int) (Math.random() * 10) + 10];
+		// random door position
 		doorX = (int) (Math.random() * myFloor.length);
 		doorY = (int) (Math.random() * myFloor[0].length);
 		myFloor[doorX][doorY] = new Door(doorX, doorY); 
+		
 		placeWall();
 		placePath();
 		placeNewPlayer(); 
@@ -123,6 +124,7 @@ public class Map {
 	}
 	
 	private void placePath() {
+		// place path from door to player position
 		System.out.println(); 
 		System.out.println("\t \t \t \t \t LOADING DUNGEON...");
 		System.out.println();

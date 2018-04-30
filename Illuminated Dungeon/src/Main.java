@@ -1,5 +1,3 @@
-package Dungeon;
-
 import java.util.Scanner;
 
 public class Main {
@@ -13,12 +11,10 @@ public class Main {
 
 	public static void main(String args[])
 	{
+		// game start
 		System.out.println("\t\t\t\t\t DUNGEON CRAWLER\n");
 		System.out.println("\t\t\t\t---------------------------------\n");
-		System.out.println("\t\t\t\t---------------------------------\n");
-//		System.out.println("\t \t \t \t ''#'' = Wall \t ''='' = Path"); 
-//		System.out.println("\t \t \t \t ''S'' = Shop \t ''D'' = Door");
-//		System.out.println("\t \t \t \t ''E'' = Enemy \t ''P'' = Player");
+		System.out.println("\t\t\t\t---------------------------------\n");	
 		Scanner sc = new Scanner(System.in);
 		System.out.print("\t \t \t \t   Press any key to continue");
 		sc.nextLine();
@@ -35,12 +31,14 @@ public class Main {
 	
 	public static void gameStart() 
 	{
+		
 		String action = "-1"; 
 		Scanner sc = new Scanner(System.in);
 		player = new Player(0, 0, myName, 1, classOrder);
 		myDungeon = new Map(1);
 		myMap = myDungeon.getMap();
 		run = true;
+		// check player hp > 0 and can run
 		while(player.getHP() > 0 && run)
 		{
 		myDungeon.Print();
@@ -65,12 +63,14 @@ public class Main {
 				showClass();
 			}
 			else {
+				// player move up
 				if(action.toUpperCase().equals("U") && player.getX() - 1 > -1 && myMap[player.getX() - 1][player.getY()].isAc())
 				{
 					if(myMap[player.getX() - 1][player.getY()] instanceof Door)
 					{
 						if(Door.ask())
 						{
+							// new level
 							myDungeon = new Map(player.getLevel() + 1);
 							player.setHP(player.getLevel() * 10);
 							player.setKey(false);
@@ -80,11 +80,13 @@ public class Main {
 						Fight f = new Fight(myDungeon.getEnemy(player.getX() - 1, player.getY()));
 						if(f.fight() == 1)
 						{
+							// win enemy
 							victory();
 							myDungeon.setTile(player.getX(), player.getY());
 							player.setX(player.getX() - 1);
 							myDungeon.placePlayer(player.getX(), player.getY());
 						} else if(f.fight() == 2){
+							// lose and die
 							gameOver();
 							break;
 						} else {
@@ -92,11 +94,14 @@ public class Main {
 						}
 					} 
 					else {
+						// move to next door
 					myDungeon.setTile(player.getX(), player.getY());
 					player.setX(player.getX() - 1);
 					myDungeon.placePlayer(player.getX(), player.getY());
-					}
-				} else if(action.toUpperCase().equals("R") && player.getY() + 1 < myMap[0].length && myMap[player.getX()][player.getY() + 1].isAc())
+					}					
+				}
+				// player move right
+				else if(action.toUpperCase().equals("R") && player.getY() + 1 < myMap[0].length && myMap[player.getX()][player.getY() + 1].isAc())
 				{
 					if(myMap[player.getX()][player.getY() + 1] instanceof Door)
 					{
@@ -128,7 +133,9 @@ public class Main {
 					player.setY(player.getY() + 1);
 					myDungeon.placePlayer(player.getX(), player.getY());
 					}
-				} else if(action.toUpperCase().equals("D") && player.getX() + 1 < myMap.length && myMap[player.getX() + 1][player.getY()].isAc())
+				}
+				// player move down
+				else if(action.toUpperCase().equals("D") && player.getX() + 1 < myMap.length && myMap[player.getX() + 1][player.getY()].isAc())
 				{
 					if(myMap[player.getX() + 1][player.getY()] instanceof Door)
 					{
@@ -158,7 +165,9 @@ public class Main {
 					player.setX(player.getX() + 1);
 					myDungeon.placePlayer(player.getX(), player.getY());
 					}
-				} else if(action.toUpperCase().equals("L") && player.getY() - 1 > -1 && myMap[player.getX()][player.getY() - 1].isAc())
+				}
+				// player move left
+				else if(action.toUpperCase().equals("L") && player.getY() - 1 > -1 && myMap[player.getX()][player.getY() - 1].isAc())
 				{
 					if(myMap[player.getX()][player.getY() - 1] instanceof Door)
 					{
@@ -199,11 +208,13 @@ public class Main {
 	
 	private static void victory()
 	{
+		// drop key to next level
 		if(myDungeon.getEnemies() <= 1 && !(player.seeKey())) 
 		{
 			player.setKey(true);
 			System.out.println("\t \t \t \t You won. It dropped a key. \n");
 		} else {
+			// got item
 			int y = (int) ((Math.random() * 5));
 			if(y == 1)
 			{
@@ -215,6 +226,7 @@ public class Main {
 	
 	private static void quit() 
 	{
+		// quit
 		System.out.println("\n \t \t \t \t Are you sure? (Y/N)");
 		Scanner sc = new Scanner(System.in);
 		String result = "-1"; 
@@ -279,6 +291,7 @@ public class Main {
 	}
 	
 	private static int showClass() {
+		// show class
 		System.out.println("\n \t \t \t \t CLASS");
 		System.out.println("\t \t \t \t 1   Warrior" );
 		System.out.println("\t \t \t \t 2   Thief" );
