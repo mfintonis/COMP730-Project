@@ -41,7 +41,7 @@ public class Fight {
 			String action = "-1";
 			// loop until one of them have hp < 0
 			while (action.equals("-1")) {
-				System.out.print("\t \t \t \t Fight, Magic, Inventory, or run? (F/M/I/R) ");
+				System.out.print("\t \t \t \t Fight, Magic, or run? (F/M/R) ");
 				Scanner sc = new Scanner(System.in);
 				action = sc.next().toUpperCase().substring(0, 1);
 				if (action.equals("R")) {
